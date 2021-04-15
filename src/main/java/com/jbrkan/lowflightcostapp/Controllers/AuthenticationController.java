@@ -1,7 +1,6 @@
 package com.jbrkan.lowflightcostapp.Controllers;
 
-import com.jbrkan.lowflightcostapp.Services.ServicesImpl.TokenServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.jbrkan.lowflightcostapp.Services.TokenService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,17 +9,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class AuthenticationController {
 
-    @Autowired
-    TokenServiceImpl tokenServiceImpl;
+    TokenService tokenService;
 
-    @GetMapping("/hello")
-    public String getHello(){
-        return "Hello";
+    public AuthenticationController(TokenService tokenService){
+        this.tokenService = tokenService;
     }
 
     @GetMapping("/Token")
     public String getToken(){
-        return tokenServiceImpl.getToken();
+        return tokenService.fetchToken();
     }
 
 

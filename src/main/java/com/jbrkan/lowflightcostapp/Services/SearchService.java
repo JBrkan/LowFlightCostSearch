@@ -4,7 +4,6 @@ import java.util.List;
 
 public interface SearchService {
 
-    public List searchByIATI();
-    public List searchByDate();
-    public int searchByPassengerCount();
+    public List<? extends Object> searchResults(String originLocationCode, String destinationLocationCode, String departureDate, int Adults, String currencyCode);
+
 }
