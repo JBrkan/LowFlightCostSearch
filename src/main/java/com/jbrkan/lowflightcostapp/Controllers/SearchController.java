@@ -1,8 +1,7 @@
 package com.jbrkan.lowflightcostapp.Controllers;
 
 import com.jbrkan.lowflightcostapp.JsonModels.SearchResults.Data;
-import com.jbrkan.lowflightcostapp.Services.ServicesImpl.SearchServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.jbrkan.lowflightcostapp.Services.SearchService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,9 +13,9 @@ import java.util.List;
 @RequestMapping("/api")
 public class SearchController {
 
-    private SearchServiceImpl searchService;
+    private final SearchService searchService;
 
-    public SearchController(SearchServiceImpl searchService){
+    public SearchController(SearchService searchService){
         this.searchService = searchService;
     }
 
@@ -25,9 +24,10 @@ public class SearchController {
             @RequestParam(name ="olc") String olc,
             @RequestParam(name="dlc") String dlc,
             @RequestParam(name="date")String date,
-            @RequestParam(name="adults") int adults,
+            @RequestParam(name="rDate")String rDate,
             @RequestParam(name="currency")String currency
-            ){
-        return searchService.searchResults(olc,dlc,date,adults,currency);
+            )
+    {
+        return searchService.searchResults(olc,dlc,date,rDate,currency);
     }
 }

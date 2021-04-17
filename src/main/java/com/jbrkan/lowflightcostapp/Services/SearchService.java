@@ -1,9 +1,11 @@
 package com.jbrkan.lowflightcostapp.Services;
 
+import com.jbrkan.lowflightcostapp.JsonModels.SearchResults.Data;
+
 import java.util.List;
 
 public interface SearchService {
 
-    public List<? extends Object> searchResults(String originLocationCode, String destinationLocationCode, String departureDate, int Adults, String currencyCode);
+    List<Data> searchResults(String originLocationCode, String destinationLocationCode, String departureDate, String returnDate, String currencyCode);
 
 }
