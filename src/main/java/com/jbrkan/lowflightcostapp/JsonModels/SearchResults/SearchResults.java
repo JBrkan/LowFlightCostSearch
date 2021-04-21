@@ -1,11 +1,12 @@
 package com.jbrkan.lowflightcostapp.JsonModels.SearchResults;
 
-import java.util.ArrayList;
+
+import java.util.List;
 
 public class SearchResults {
 
     private Meta meta;
-    private ArrayList<Data> data;
+    private List<Data> data;
 
     public SearchResults() {
     }
@@ -14,7 +15,7 @@ public class SearchResults {
         return meta;
     }
 
-    public ArrayList<Data> getData() {
+    public List<Data> getData() {
         return data;
     }
 }

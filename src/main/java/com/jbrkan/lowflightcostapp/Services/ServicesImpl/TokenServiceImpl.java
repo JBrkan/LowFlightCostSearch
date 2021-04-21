@@ -37,16 +37,18 @@ public class TokenServiceImpl implements TokenService {
 
         LinkedMultiValueMap<String, String> body = new LinkedMultiValueMap<>();
         body.add("grant_type", "client_credentials");
-        body.add("client_id","Gx47ZZBcvKDmDNQPAiSv7gPTUOyETMXb");
-        body.add("client_secret","oNu9vK8Jeru8OETw");
+        body.add("client_id","");
+        body.add("client_secret","");
 
 
         RestTemplate restTemplate = new RestTemplate();
         HttpEntity httpEntity = new HttpEntity(body, httpHeaders);
 
         ResponseEntity<Token> responseEntity = restTemplate.exchange(URI, HttpMethod.POST,httpEntity,Token.class);
-
+        Token t = new Token();
+        t.setAccessToken("gasgas");
         this.setToken(responseEntity.getBody());
+        this.setToken(t);
 
         return "Token dohvacen";
     }

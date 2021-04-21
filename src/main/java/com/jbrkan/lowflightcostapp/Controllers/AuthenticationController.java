@@ -1,5 +1,6 @@
 package com.jbrkan.lowflightcostapp.Controllers;
 
+import com.jbrkan.lowflightcostapp.Exceptions.TokenNotFoundException;
 import com.jbrkan.lowflightcostapp.Services.TokenService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +18,8 @@ public class AuthenticationController {
 
     @GetMapping("/Token")
     public String getToken(){
-        return tokenService.fetchToken();
+        throw new TokenNotFoundException("gas");
+
     }
 
 

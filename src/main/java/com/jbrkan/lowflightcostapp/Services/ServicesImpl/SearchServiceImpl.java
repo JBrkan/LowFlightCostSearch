@@ -9,8 +9,13 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class SearchServiceImpl implements SearchService {
@@ -28,29 +33,41 @@ public class SearchServiceImpl implements SearchService {
 
 
     @Override
-    public List<Data> searchResults(
+    public LinkedMultiValueMap<?,?> searchResults(
             String originLocationCode,
             String destinationLocationCode,
             String departureDate,
             String returnDate,
+            int adults,
             String currencyCode) {
+
+
+        if(tokenService.getToken()==null){
+            tokenService.fetchToken();
+        }
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.set("Content-Type","application/json");
        httpHeaders.setBearerAuth(tokenService.getToken().getAccessToken());
 
+
        String SearchURI = URI + "?originLocationCode=" + originLocationCode +
                "&destinationLocationCode=" + destinationLocationCode +
                "&departureDate=" + departureDate +
                "&returnDate=" + returnDate +
-               "&adults=1" +
+               "&adults=" + adults +
                "&currencyCode=" + currencyCode;
 
        HttpEntity httpEntity = new HttpEntity(httpHeaders);
 
        ResponseEntity<SearchResults> responseEntity = restTemplate.exchange(SearchURI, HttpMethod.GET, httpEntity, SearchResults.class);
+       MultiValueMap<String, String> multiValueMap = new LinkedMultiValueMap<>();
 
-       return responseEntity.getBody().getData();
+
+
+       responseEntity.getBody().getData().forEach(data -> {multiValueMap.add(data.getId(), data.getPrice().getCurrency());});
+
+       return (LinkedMultiValueMap<?, ?>) multiValueMap.get(1);
     }
 
 }

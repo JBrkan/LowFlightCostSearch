@@ -51,6 +51,10 @@ public class Token {
     public String getScope() {
         return scope;
     }
+
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
+    }
 }
 
 
